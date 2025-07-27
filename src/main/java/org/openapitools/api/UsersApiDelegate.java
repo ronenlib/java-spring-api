@@ -1,8 +1,6 @@
 package org.openapitools.api;
 
-import org.openapitools.model.PostProxy200Response;
-import org.openapitools.model.PostProxy400Response;
-import org.openapitools.model.PostProxyRequest;
+import org.openapitools.model.GetUserById200Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,34 +16,28 @@ import java.util.Optional;
 import javax.annotation.Generated;
 
 /**
- * A delegate to be called by the {@link ProxyApiController}}.
+ * A delegate to be called by the {@link UsersApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-26T19:35:46.310079470-04:00[America/New_York]", comments = "Generator version: 7.14.0")
-public interface ProxyApiDelegate {
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-27T17:46:50.636306-04:00[America/New_York]", comments = "Generator version: 7.14.0")
+public interface UsersApiDelegate {
 
     default Optional<NativeWebRequest> getRequest() {
         return Optional.empty();
     }
 
     /**
-     * POST /proxy : Proxy requests to another service
+     * GET /users/:id : Get a user by ID
      *
-     * @param postProxyRequest  (required)
-     * @return Proxy request successful (status code 200)
-     *         or Bad request (status code 400)
-     * @see ProxyApi#postProxy
+     * @param id  (optional)
+     * @return App user (status code 200)
+     * @see UsersApi#getUserById
      */
-    default ResponseEntity<PostProxy200Response> postProxy(PostProxyRequest postProxyRequest) {
+    default ResponseEntity<GetUserById200Response> getUserById(Integer id) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"response\" : { \"key\" : \"value\" } }";
-                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
-                    break;
-                }
-                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"error\" : \"Invalid request\" }";
+                    String exampleString = "{ \"id\" : 1, \"username\" : \"admin\" }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }

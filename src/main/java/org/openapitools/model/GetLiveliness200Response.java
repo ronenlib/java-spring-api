@@ -21,7 +21,7 @@ import javax.annotation.Generated;
  */
 
 @JsonTypeName("getLiveliness_200_response")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-26T19:35:46.310079470-04:00[America/New_York]", comments = "Generator version: 7.14.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-27T17:46:50.636306-04:00[America/New_York]", comments = "Generator version: 7.14.0")
 public class GetLiveliness200Response {
 
   private @Nullable String status;

@@ -1,6 +1,6 @@
 package org.openapitools.api;
 
-import org.openapitools.model.GetLiveliness200Response;
+import org.openapitools.model.GetUserById200Response;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,16 +29,16 @@ import javax.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-27T17:46:13.322296-04:00[America/New_York]", comments = "Generator version: 7.14.0")
 @Controller
 @RequestMapping("${openapi.play.base-path:}")
-public class LivelinessApiController implements LivelinessApi {
+public class UsersApiController implements UsersApi {
 
-    private final LivelinessApiDelegate delegate;
+    private final UsersApiDelegate delegate;
 
-    public LivelinessApiController(@Autowired(required = false) LivelinessApiDelegate delegate) {
-        this.delegate = Optional.ofNullable(delegate).orElse(new LivelinessApiDelegate() {});
+    public UsersApiController(@Autowired(required = false) UsersApiDelegate delegate) {
+        this.delegate = Optional.ofNullable(delegate).orElse(new UsersApiDelegate() {});
     }
 
     @Override
-    public LivelinessApiDelegate getDelegate() {
+    public UsersApiDelegate getDelegate() {
         return delegate;
     }
 

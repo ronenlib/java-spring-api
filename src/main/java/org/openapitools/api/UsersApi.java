@@ -5,7 +5,7 @@
  */
 package org.openapitools.api;
 
-import org.openapitools.model.GetLiveliness200Response;
+import org.openapitools.model.GetUserById200Response;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -32,37 +32,38 @@ import javax.annotation.Generated;
 
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-27T17:46:50.636306-04:00[America/New_York]", comments = "Generator version: 7.14.0")
 @Validated
-@Tag(name = "liveliness", description = "the liveliness API")
-public interface LivelinessApi {
+@Tag(name = "users", description = "the users API")
+public interface UsersApi {
 
-    default LivelinessApiDelegate getDelegate() {
-        return new LivelinessApiDelegate() {};
+    default UsersApiDelegate getDelegate() {
+        return new UsersApiDelegate() {};
     }
 
     /**
-     * GET /liveliness : Check if the service is alive
+     * GET /users/:id : Get a user by ID
      *
-     * @return Service is alive (status code 200)
+     * @param id  (optional)
+     * @return App user (status code 200)
      */
     @Operation(
-        operationId = "getLiveliness",
-        summary = "Check if the service is alive",
+        operationId = "getUserById",
+        summary = "Get a user by ID",
         responses = {
-            @ApiResponse(responseCode = "200", description = "Service is alive", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = GetLiveliness200Response.class))
+            @ApiResponse(responseCode = "200", description = "App user", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = GetUserById200Response.class))
             })
         }
     )
     @RequestMapping(
         method = RequestMethod.GET,
-        value = "/liveliness",
+        value = "/users/:id",
         produces = { "application/json" }
     )
     
-    default ResponseEntity<GetLiveliness200Response> getLiveliness(
-        
+    default ResponseEntity<GetUserById200Response> getUserById(
+        @Parameter(name = "id", description = "", in = ParameterIn.PATH) @PathVariable("id") Integer id
     ) {
-        return getDelegate().getLiveliness();
+        return getDelegate().getUserById(id);
     }
 
 }

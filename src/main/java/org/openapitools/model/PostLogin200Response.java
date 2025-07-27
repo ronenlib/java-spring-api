@@ -17,33 +17,33 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * PostProxy200Response
+ * PostLogin200Response
  */
 
-@JsonTypeName("postProxy_200_response")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-26T19:35:46.310079470-04:00[America/New_York]", comments = "Generator version: 7.14.0")
-public class PostProxy200Response {
+@JsonTypeName("postLogin_200_response")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-27T17:46:50.636306-04:00[America/New_York]", comments = "Generator version: 7.14.0")
+public class PostLogin200Response {
 
-  private @Nullable Object response;
+  private @Nullable String token;
 
-  public PostProxy200Response response(@Nullable Object response) {
-    this.response = response;
+  public PostLogin200Response token(@Nullable String token) {
+    this.token = token;
     return this;
   }
 
   /**
-   * Get response
-   * @return response
+   * Get token
+   * @return token
    */
   
-  @Schema(name = "response", example = "{\"key\":\"value\"}", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("response")
-  public @Nullable Object getResponse() {
-    return response;
+  @Schema(name = "token", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("token")
+  public @Nullable String getToken() {
+    return token;
   }
 
-  public void setResponse(@Nullable Object response) {
-    this.response = response;
+  public void setToken(@Nullable String token) {
+    this.token = token;
   }
 
   @Override
@@ -54,20 +54,20 @@ public class PostProxy200Response {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PostProxy200Response postProxy200Response = (PostProxy200Response) o;
-    return Objects.equals(this.response, postProxy200Response.response);
+    PostLogin200Response postLogin200Response = (PostLogin200Response) o;
+    return Objects.equals(this.token, postLogin200Response.token);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(response);
+    return Objects.hash(token);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PostProxy200Response {\n");
-    sb.append("    response: ").append(toIndentedString(response)).append("\n");
+    sb.append("class PostLogin200Response {\n");
+    sb.append("    token: ").append(toIndentedString(token)).append("\n");
     sb.append("}");
     return sb.toString();
   }

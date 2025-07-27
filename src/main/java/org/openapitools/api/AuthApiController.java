@@ -1,8 +1,8 @@
 package org.openapitools.api;
 
-import org.openapitools.model.PostProxy200Response;
-import org.openapitools.model.PostProxy400Response;
-import org.openapitools.model.PostProxyRequest;
+import org.openapitools.model.PostLogin200Response;
+import org.openapitools.model.PostLogin401Response;
+import org.openapitools.model.PostLoginRequest;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,19 +28,19 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-26T19:35:46.310079470-04:00[America/New_York]", comments = "Generator version: 7.14.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-27T17:46:13.322296-04:00[America/New_York]", comments = "Generator version: 7.14.0")
 @Controller
 @RequestMapping("${openapi.play.base-path:}")
-public class ProxyApiController implements ProxyApi {
+public class AuthApiController implements AuthApi {
 
-    private final ProxyApiDelegate delegate;
+    private final AuthApiDelegate delegate;
 
-    public ProxyApiController(@Autowired(required = false) ProxyApiDelegate delegate) {
-        this.delegate = Optional.ofNullable(delegate).orElse(new ProxyApiDelegate() {});
+    public AuthApiController(@Autowired(required = false) AuthApiDelegate delegate) {
+        this.delegate = Optional.ofNullable(delegate).orElse(new AuthApiDelegate() {});
     }
 
     @Override
-    public ProxyApiDelegate getDelegate() {
+    public AuthApiDelegate getDelegate() {
         return delegate;
     }
 

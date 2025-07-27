@@ -5,9 +5,9 @@
  */
 package org.openapitools.api;
 
-import org.openapitools.model.PostProxy200Response;
-import org.openapitools.model.PostProxy400Response;
-import org.openapitools.model.PostProxyRequest;
+import org.openapitools.model.PostLogin200Response;
+import org.openapitools.model.PostLogin401Response;
+import org.openapitools.model.PostLoginRequest;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -32,45 +32,45 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-26T19:35:46.310079470-04:00[America/New_York]", comments = "Generator version: 7.14.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-27T17:46:50.636306-04:00[America/New_York]", comments = "Generator version: 7.14.0")
 @Validated
-@Tag(name = "proxy", description = "the proxy API")
-public interface ProxyApi {
+@Tag(name = "auth", description = "the auth API")
+public interface AuthApi {
 
-    default ProxyApiDelegate getDelegate() {
-        return new ProxyApiDelegate() {};
+    default AuthApiDelegate getDelegate() {
+        return new AuthApiDelegate() {};
     }
 
     /**
-     * POST /proxy : Proxy requests to another service
+     * POST /auth/login : Login to the service
      *
-     * @param postProxyRequest  (required)
-     * @return Proxy request successful (status code 200)
-     *         or Bad request (status code 400)
+     * @param postLoginRequest  (required)
+     * @return Login successful (status code 200)
+     *         or Unauthorized (status code 401)
      */
     @Operation(
-        operationId = "postProxy",
-        summary = "Proxy requests to another service",
+        operationId = "postLogin",
+        summary = "Login to the service",
         responses = {
-            @ApiResponse(responseCode = "200", description = "Proxy request successful", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = PostProxy200Response.class))
+            @ApiResponse(responseCode = "200", description = "Login successful", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = PostLogin200Response.class))
             }),
-            @ApiResponse(responseCode = "400", description = "Bad request", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = PostProxy400Response.class))
+            @ApiResponse(responseCode = "401", description = "Unauthorized", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = PostLogin401Response.class))
             })
         }
     )
     @RequestMapping(
         method = RequestMethod.POST,
-        value = "/proxy",
+        value = "/auth/login",
         produces = { "application/json" },
         consumes = { "application/json" }
     )
     
-    default ResponseEntity<PostProxy200Response> postProxy(
-        @Parameter(name = "PostProxyRequest", description = "", required = true) @Valid @RequestBody PostProxyRequest postProxyRequest
+    default ResponseEntity<PostLogin200Response> postLogin(
+        @Parameter(name = "PostLoginRequest", description = "", required = true) @Valid @RequestBody PostLoginRequest postLoginRequest
     ) {
-        return getDelegate().postProxy(postProxyRequest);
+        return getDelegate().postLogin(postLoginRequest);
     }
 
 }

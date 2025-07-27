@@ -17,33 +17,33 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * PostProxy400Response
+ * PostLogin401Response
  */
 
-@JsonTypeName("postProxy_400_response")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-26T19:35:46.310079470-04:00[America/New_York]", comments = "Generator version: 7.14.0")
-public class PostProxy400Response {
+@JsonTypeName("postLogin_401_response")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-27T17:46:50.636306-04:00[America/New_York]", comments = "Generator version: 7.14.0")
+public class PostLogin401Response {
 
-  private @Nullable String error;
+  private @Nullable String message;
 
-  public PostProxy400Response error(@Nullable String error) {
-    this.error = error;
+  public PostLogin401Response message(@Nullable String message) {
+    this.message = message;
     return this;
   }
 
   /**
-   * Get error
-   * @return error
+   * Get message
+   * @return message
    */
   
-  @Schema(name = "error", example = "Invalid request", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("error")
-  public @Nullable String getError() {
-    return error;
+  @Schema(name = "message", example = "Unauthorized", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("message")
+  public @Nullable String getMessage() {
+    return message;
   }
 
-  public void setError(@Nullable String error) {
-    this.error = error;
+  public void setMessage(@Nullable String message) {
+    this.message = message;
   }
 
   @Override
@@ -54,20 +54,20 @@ public class PostProxy400Response {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PostProxy400Response postProxy400Response = (PostProxy400Response) o;
-    return Objects.equals(this.error, postProxy400Response.error);
+    PostLogin401Response postLogin401Response = (PostLogin401Response) o;
+    return Objects.equals(this.message, postLogin401Response.message);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(error);
+    return Objects.hash(message);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PostProxy400Response {\n");
-    sb.append("    error: ").append(toIndentedString(error)).append("\n");
+    sb.append("class PostLogin401Response {\n");
+    sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -19,61 +19,73 @@ paths:
       summary: Check if the service is alive
       x-accepts:
       - application/json
-  /proxy:
+  /auth/login:
     post:
-      operationId: postProxy
+      operationId: postLogin
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/postProxy_request"
+              $ref: "#/components/schemas/postLogin_request"
         required: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/postProxy_200_response"
-          description: Proxy request successful
-        "400":
+                $ref: "#/components/schemas/postLogin_200_response"
+          description: Login successful
+        "401":
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/postProxy_400_response"
-          description: Bad request
-      summary: Proxy requests to another service
+                $ref: "#/components/schemas/postLogin_401_response"
+          description: Unauthorized
+      summary: Login to the service
       x-content-type: application/json
+      x-accepts:
+      - application/json
+  /users/:id:
+    get:
+      operationId: getUserById
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: false
+        schema:
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/getUserById_200_response"
+          description: App user
+      summary: Get a user by ID
       x-accepts:
       - application/json
 components:
   schemas:
-    postProxy_400_response:
+    postLogin_200_response:
       example:
-        error: Invalid request
+        token: token
       properties:
-        error:
-          example: Invalid request
+        token:
           type: string
       type: object
-    postProxy_request:
-      properties:
-        url:
-          example: https://example.com
-          type: string
-        payload:
-          example:
-            key: value
-          type: object
-      type: object
-    postProxy_200_response:
+    getUserById_200_response:
       example:
-        response:
-          key: value
+        id: 1
+        username: admin
       properties:
-        response:
-          example:
-            key: value
-          type: object
+        id:
+          example: 1
+          type: integer
+        username:
+          example: admin
+          type: string
       type: object
     getLiveliness_200_response:
       example:
@@ -81,5 +93,22 @@ components:
       properties:
         status:
           example: alive
+          type: string
+      type: object
+    postLogin_401_response:
+      example:
+        message: Unauthorized
+      properties:
+        message:
+          example: Unauthorized
+          type: string
+      type: object
+    postLogin_request:
+      properties:
+        username:
+          example: admin
+          type: string
+        password:
+          example: admin
           type: string
       type: object

@@ -20,10 +20,10 @@ paths:
                   status:
                     type: string
                     example: alive
-  /proxy:
+  /auth/login:
     post:
-      summary: Proxy requests to another service
-      operationId: postProxy
+      summary: Login to the service
+      operationId: postLogin
       requestBody:
         required: true
         content:
@@ -31,30 +31,53 @@ paths:
             schema:
               type: object
               properties:
-                url:
+                username:
                   type: string
-                  example: https://example.com
-                payload:
-                  type: object
-                  example: {"key": "value"}
+                  example: admin
+                password:
+                  type: string
+                  example: admin
       responses:
         '200':
-          description: Proxy request successful
+          description: Login successful
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  response:
-                    type: object
-                    example: {"key": "value"}
-        '400':
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
+                  token:
                     type: string
-                    example: Invalid request
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Unauthorized
+
+  /users/:id:
+    get:
+      summary: Get a user by ID
+      operationId: getUserById
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: App user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  username:
+                    type: string
+                    example: admin

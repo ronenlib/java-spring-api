@@ -1,0 +1,60 @@
+openapi: 3.0.3
+info:
+  title: Play API
+  version: 1.0.0
+  description: Play API
+
+paths:
+  /liveliness:
+    get:
+      summary: Check if the service is alive
+      operationId: getLiveliness
+      responses:
+        '200':
+          description: Service is alive
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: alive
+  /proxy:
+    post:
+      summary: Proxy requests to another service
+      operationId: postProxy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+                  example: https://example.com
+                payload:
+                  type: object
+                  example: {"key": "value"}
+      responses:
+        '200':
+          description: Proxy request successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: object
+                    example: {"key": "value"}
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid request

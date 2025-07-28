@@ -1,6 +1,7 @@
 package org.openapitools.api;
 
-import org.openapitools.model.GetUserById200Response;
+import org.openapitools.model.ErrorResponse;
+import org.openapitools.model.UserResponse;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +19,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.*;
-import javax.validation.Valid;
+import jakarta.validation.constraints.*;
+import jakarta.validation.Valid;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import javax.annotation.Generated;
+import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-27T17:46:13.322296-04:00[America/New_York]", comments = "Generator version: 7.14.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-27T23:22:02.651322-04:00[America/New_York]", comments = "Generator version: 7.14.0")
 @Controller
 @RequestMapping("${openapi.play.base-path:}")
 public class UsersApiController implements UsersApi {

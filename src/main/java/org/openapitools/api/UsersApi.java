@@ -5,7 +5,8 @@
  */
 package org.openapitools.api;
 
-import org.openapitools.model.GetUserById200Response;
+import org.openapitools.model.ErrorResponse;
+import org.openapitools.model.UserResponse;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -24,15 +25,15 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.Generated;
+import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-27T17:46:50.636306-04:00[America/New_York]", comments = "Generator version: 7.14.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-28T00:11:12.019160-04:00[America/New_York]", comments = "Generator version: 7.14.0")
 @Validated
-@Tag(name = "users", description = "the users API")
+@Tag(name = "Users", description = "User management")
 public interface UsersApi {
 
     default UsersApiDelegate getDelegate() {
@@ -40,28 +41,42 @@ public interface UsersApi {
     }
 
     /**
-     * GET /users/:id : Get a user by ID
+     * GET /users/{id} : Get a user by ID
+     * Requires a valid JWT token.
      *
-     * @param id  (optional)
+     * @param id ID of the user to retrieve (required)
      * @return App user (status code 200)
+     *         or Unauthorized – invalid or missing token (status code 401)
+     *         or User not found (status code 404)
      */
     @Operation(
         operationId = "getUserById",
         summary = "Get a user by ID",
+        description = "Requires a valid JWT token.",
+        tags = { "Users" },
         responses = {
             @ApiResponse(responseCode = "200", description = "App user", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = GetUserById200Response.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponse.class))
+            }),
+            @ApiResponse(responseCode = "401", description = "Unauthorized – invalid or missing token", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
+            }),
+            @ApiResponse(responseCode = "404", description = "User not found", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
             })
+        },
+        security = {
+            @SecurityRequirement(name = "BearerAuth")
         }
     )
     @RequestMapping(
         method = RequestMethod.GET,
-        value = "/users/:id",
+        value = "/users/{id}",
         produces = { "application/json" }
     )
     
-    default ResponseEntity<GetUserById200Response> getUserById(
-        @Parameter(name = "id", description = "", in = ParameterIn.PATH) @PathVariable("id") Integer id
+    default ResponseEntity<UserResponse> getUserById(
+        @Min(1) @Parameter(name = "id", description = "ID of the user to retrieve", required = true, in = ParameterIn.PATH) @PathVariable("id") Integer id
     ) {
         return getDelegate().getUserById(id);
     }

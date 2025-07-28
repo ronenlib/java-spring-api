@@ -4,29 +4,38 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 import org.springframework.lang.Nullable;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
 import java.util.*;
-import javax.annotation.Generated;
+import jakarta.annotation.Generated;
 
 /**
- * GetLiveliness200Response
+ * LivelinessResponse
  */
 
-@JsonTypeName("getLiveliness_200_response")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-27T17:46:50.636306-04:00[America/New_York]", comments = "Generator version: 7.14.0")
-public class GetLiveliness200Response {
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-28T00:11:12.019160-04:00[America/New_York]", comments = "Generator version: 7.14.0")
+public class LivelinessResponse {
 
-  private @Nullable String status;
+  private String status;
 
-  public GetLiveliness200Response status(@Nullable String status) {
+  public LivelinessResponse() {
+    super();
+  }
+
+  /**
+   * Constructor with only required parameters
+   */
+  public LivelinessResponse(String status) {
+    this.status = status;
+  }
+
+  public LivelinessResponse status(String status) {
     this.status = status;
     return this;
   }
@@ -35,14 +44,14 @@ public class GetLiveliness200Response {
    * Get status
    * @return status
    */
-  
-  @Schema(name = "status", example = "alive", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @NotNull 
+  @Schema(name = "status", example = "alive", requiredMode = Schema.RequiredMode.REQUIRED)
   @JsonProperty("status")
-  public @Nullable String getStatus() {
+  public String getStatus() {
     return status;
   }
 
-  public void setStatus(@Nullable String status) {
+  public void setStatus(String status) {
     this.status = status;
   }
 
@@ -54,8 +63,8 @@ public class GetLiveliness200Response {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    GetLiveliness200Response getLiveliness200Response = (GetLiveliness200Response) o;
-    return Objects.equals(this.status, getLiveliness200Response.status);
+    LivelinessResponse livelinessResponse = (LivelinessResponse) o;
+    return Objects.equals(this.status, livelinessResponse.status);
   }
 
   @Override
@@ -66,7 +75,7 @@ public class GetLiveliness200Response {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class GetLiveliness200Response {\n");
+    sb.append("class LivelinessResponse {\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("}");
     return sb.toString();

@@ -4,29 +4,27 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 import org.springframework.lang.Nullable;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
 import java.util.*;
-import javax.annotation.Generated;
+import jakarta.annotation.Generated;
 
 /**
- * PostLogin200Response
+ * LoginSuccessResponse
  */
 
-@JsonTypeName("postLogin_200_response")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-27T17:46:50.636306-04:00[America/New_York]", comments = "Generator version: 7.14.0")
-public class PostLogin200Response {
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-28T00:11:12.019160-04:00[America/New_York]", comments = "Generator version: 7.14.0")
+public class LoginSuccessResponse {
 
   private @Nullable String token;
 
-  public PostLogin200Response token(@Nullable String token) {
+  public LoginSuccessResponse token(@Nullable String token) {
     this.token = token;
     return this;
   }
@@ -36,7 +34,7 @@ public class PostLogin200Response {
    * @return token
    */
   
-  @Schema(name = "token", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @Schema(name = "token", example = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("token")
   public @Nullable String getToken() {
     return token;
@@ -54,8 +52,8 @@ public class PostLogin200Response {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PostLogin200Response postLogin200Response = (PostLogin200Response) o;
-    return Objects.equals(this.token, postLogin200Response.token);
+    LoginSuccessResponse loginSuccessResponse = (LoginSuccessResponse) o;
+    return Objects.equals(this.token, loginSuccessResponse.token);
   }
 
   @Override
@@ -66,7 +64,7 @@ public class PostLogin200Response {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PostLogin200Response {\n");
+    sb.append("class LoginSuccessResponse {\n");
     sb.append("    token: ").append(toIndentedString(token)).append("\n");
     sb.append("}");
     return sb.toString();

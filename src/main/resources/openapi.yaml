@@ -1,59 +1,88 @@
 openapi: 3.0.3
 info:
-  description: Play API
+  description: A simple API demonstrating JWT authentication and best practices.
   title: Play API
   version: 1.0.0
 servers:
 - url: /
+tags:
+- description: Health check endpoints
+  name: Health
+- description: Authentication and login
+  name: Auth
+- description: User management
+  name: Users
 paths:
   /liveliness:
     get:
+      description: Useful for load balancers or monitoring tools.
       operationId: getLiveliness
       responses:
         "200":
           content:
             application/json:
+              example:
+                status: alive
               schema:
-                $ref: "#/components/schemas/getLiveliness_200_response"
+                $ref: "#/components/schemas/LivelinessResponse"
           description: Service is alive
       summary: Check if the service is alive
+      tags:
+      - Health
       x-accepts:
       - application/json
+      x-tags:
+      - tag: Health
   /auth/login:
     post:
+      description: Authenticate a user and return a JWT token.
       operationId: postLogin
       requestBody:
         content:
           application/json:
+            example:
+              username: admin
+              password: admin
             schema:
-              $ref: "#/components/schemas/postLogin_request"
+              $ref: "#/components/schemas/LoginRequest"
         required: true
       responses:
         "200":
           content:
             application/json:
+              example:
+                token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
               schema:
-                $ref: "#/components/schemas/postLogin_200_response"
+                $ref: "#/components/schemas/LoginSuccessResponse"
           description: Login successful
         "401":
           content:
             application/json:
+              example:
+                message: Unauthorized
               schema:
-                $ref: "#/components/schemas/postLogin_401_response"
-          description: Unauthorized
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Invalid credentials
       summary: Login to the service
+      tags:
+      - Auth
       x-content-type: application/json
       x-accepts:
       - application/json
-  /users/:id:
+      x-tags:
+      - tag: Auth
+  /users/{id}:
     get:
+      description: Requires a valid JWT token.
       operationId: getUserById
       parameters:
-      - explode: false
+      - description: ID of the user to retrieve
+        explode: false
         in: path
         name: id
-        required: false
+        required: true
         schema:
+          minimum: 1
           type: integer
         style: simple
       responses:
@@ -61,21 +90,70 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/getUserById_200_response"
+                $ref: "#/components/schemas/UserResponse"
           description: App user
+        "401":
+          content:
+            application/json:
+              example:
+                message: Unauthorized
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Unauthorized – invalid or missing token
+        "404":
+          content:
+            application/json:
+              example:
+                message: User not found
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: User not found
+      security:
+      - BearerAuth: []
       summary: Get a user by ID
+      tags:
+      - Users
       x-accepts:
       - application/json
+      x-tags:
+      - tag: Users
 components:
   schemas:
-    postLogin_200_response:
+    LivelinessResponse:
       example:
-        token: token
+        status: alive
+      properties:
+        status:
+          example: alive
+          type: string
+      required:
+      - status
+      type: object
+    LoginRequest:
+      example:
+        password: admin
+        username: admin
+      properties:
+        username:
+          example: admin
+          type: string
+        password:
+          example: admin
+          format: password
+          type: string
+      required:
+      - password
+      - username
+      type: object
+    LoginSuccessResponse:
+      example:
+        token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
       properties:
         token:
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
           type: string
       type: object
-    getUserById_200_response:
+    UserResponse:
       example:
         id: 1
         username: admin
@@ -86,29 +164,26 @@ components:
         username:
           example: admin
           type: string
+      required:
+      - id
+      - username
       type: object
-    getLiveliness_200_response:
+    ErrorResponse:
       example:
-        status: alive
-      properties:
-        status:
-          example: alive
-          type: string
-      type: object
-    postLogin_401_response:
-      example:
+        code: ERROR
         message: Unauthorized
       properties:
+        code:
+          example: ERROR
+          type: string
         message:
           example: Unauthorized
           type: string
+      required:
+      - message
       type: object
-    postLogin_request:
-      properties:
-        username:
-          example: admin
-          type: string
-        password:
-          example: admin
-          type: string
-      type: object
+  securitySchemes:
+    BearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http

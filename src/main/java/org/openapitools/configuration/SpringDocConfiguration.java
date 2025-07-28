@@ -19,8 +19,16 @@ public class SpringDocConfiguration {
                 .info(
                         new Info()
                                 .title("Play API")
-                                .description("Play API")
+                                .description("A simple API demonstrating JWT authentication and best practices.")
                                 .version("1.0.0")
+                )
+                .components(
+                        new Components()
+                                .addSecuritySchemes("BearerAuth", new SecurityScheme()
+                                        .type(SecurityScheme.Type.HTTP)
+                                        .scheme("bearer")
+                                        .bearerFormat("JWT")
+                                )
                 )
         ;
     }

@@ -1,4 +1,4 @@
-package org.openapitools.util;
+package org.util;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;

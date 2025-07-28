@@ -1,22 +1,20 @@
-package org.openapitools.service;
+package org.service;
 
-import org.openapitools.api.AuthApiDelegate;
-import org.openapitools.model.PostLogin200Response;
-import org.openapitools.model.PostLoginRequest;
-import org.openapitools.util.JwtUtil;
+import org.openapitools.model.ErrorResponse;
+import org.openapitools.model.LoginRequest;
+import org.openapitools.model.LoginSuccessResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.util.JwtUtil;
 
 @Service
-public class AuthService implements AuthApiDelegate {
+public class AuthService {
     @Autowired
     private JwtUtil jwtUtil;
 
-
-    @Override
-    public ResponseEntity<PostLogin200Response> postLogin(PostLoginRequest postLoginRequest) {
+    public ResponseEntity<?> postLogin(LoginRequest postLoginRequest) {
         String username = postLoginRequest.getUsername();
         String password = postLoginRequest.getPassword();
 
@@ -24,12 +22,15 @@ public class AuthService implements AuthApiDelegate {
         if ("admin".equals(username) && "admin".equals(password)) {
             String token = jwtUtil.generateToken(username);
 
-            PostLogin200Response response = new PostLogin200Response();
+            LoginSuccessResponse response = new LoginSuccessResponse();
             response.setToken(token);
 
             return ResponseEntity.ok(response);
         }
 
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        ErrorResponse error = new ErrorResponse();
+        error.setCode("UNAUTHORIZED");
+        error.setMessage("Invalid username or password");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
     }
 }

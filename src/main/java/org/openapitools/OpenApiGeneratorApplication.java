@@ -13,7 +13,9 @@ import org.springframework.context.annotation.FullyQualifiedAnnotationBeanNameGe
     nameGenerator = FullyQualifiedAnnotationBeanNameGenerator.class
 )
 @ComponentScan(
-    basePackages = {"org.openapitools", "org.openapitools.api" , "org.openapitools.configuration"},
+    basePackages = {"org.openapitools", "org.openapitools.api" , "org.openapitools.configuration", "org.controller", "org.service", "org.util"},
+    excludeFilters = {
+},
     nameGenerator = FullyQualifiedAnnotationBeanNameGenerator.class
 )
 public class OpenApiGeneratorApplication {

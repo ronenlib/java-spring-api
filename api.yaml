@@ -1,83 +1,179 @@
 openapi: 3.0.3
 info:
   title: Play API
+  description: A simple API demonstrating JWT authentication and best practices.
   version: 1.0.0
-  description: Play API
+
+servers:
+  - url: /
+
+tags:
+  - name: Health
+    description: Health check endpoints
+  - name: Auth
+    description: Authentication and login
+  - name: Users
+    description: User management
 
 paths:
   /liveliness:
     get:
+      tags:
+        - Health
       summary: Check if the service is alive
+      description: Useful for load balancers or monitoring tools.
       operationId: getLiveliness
       responses:
-        '200':
+        "200":
           description: Service is alive
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: alive
+                $ref: "#/components/schemas/LivelinessResponse"
+              example:
+                status: alive
+      x-accepts:
+        - application/json
+
   /auth/login:
     post:
+      tags:
+        - Auth
       summary: Login to the service
+      description: Authenticate a user and return a JWT token.
       operationId: postLogin
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                username:
-                  type: string
-                  example: admin
-                password:
-                  type: string
-                  example: admin
+              $ref: "#/components/schemas/LoginRequest"
+            example:
+              username: admin
+              password: admin
       responses:
-        '200':
+        "200":
           description: Login successful
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  token:
-                    type: string
-        '401':
-          description: Unauthorized
+                $ref: "#/components/schemas/LoginSuccessResponse"
+              example:
+                token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        "401":
+          description: Invalid credentials
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: Unauthorized
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                message: Unauthorized
+      x-content-type: application/json
+      x-accepts:
+        - application/json
 
-  /users/:id:
+  /users/{id}:
     get:
+      tags:
+        - Users
       summary: Get a user by ID
+      description: Requires a valid JWT token.
       operationId: getUserById
       parameters:
-        - in: path
-          name: id
+        - name: id
+          in: path
+          required: true
           schema:
             type: integer
+            minimum: 1
+          description: ID of the user to retrieve
       responses:
-        '200':
+        "200":
           description: App user
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                    example: 1
-                  username:
-                    type: string
-                    example: admin
+                $ref: "#/components/schemas/UserResponse"
+        "401":
+          description: Unauthorized – invalid or missing token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                message: Unauthorized
+        "404":
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                message: User not found
+      security:
+        - BearerAuth: []
+      x-accepts:
+        - application/json
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    LivelinessResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: alive
+      required:
+        - status
+
+    LoginRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          example: admin
+        password:
+          type: string
+          format: password
+          example: admin
+      required:
+        - username
+        - password
+
+    LoginSuccessResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+
+    UserResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        username:
+          type: string
+          example: admin
+      required:
+        - id
+        - username
+
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: "ERROR"
+        message:
+          type: string
+          example: Unauthorized
+      required:
+        - message

@@ -5,7 +5,7 @@
  */
 package org.openapitools.api;
 
-import org.openapitools.model.GetLiveliness200Response;
+import org.openapitools.model.LivelinessResponse;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -24,15 +24,15 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.Generated;
+import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-27T17:46:50.636306-04:00[America/New_York]", comments = "Generator version: 7.14.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-28T00:11:12.019160-04:00[America/New_York]", comments = "Generator version: 7.14.0")
 @Validated
-@Tag(name = "liveliness", description = "the liveliness API")
+@Tag(name = "Health", description = "Health check endpoints")
 public interface LivelinessApi {
 
     default LivelinessApiDelegate getDelegate() {
@@ -41,15 +41,18 @@ public interface LivelinessApi {
 
     /**
      * GET /liveliness : Check if the service is alive
+     * Useful for load balancers or monitoring tools.
      *
      * @return Service is alive (status code 200)
      */
     @Operation(
         operationId = "getLiveliness",
         summary = "Check if the service is alive",
+        description = "Useful for load balancers or monitoring tools.",
+        tags = { "Health" },
         responses = {
             @ApiResponse(responseCode = "200", description = "Service is alive", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = GetLiveliness200Response.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = LivelinessResponse.class))
             })
         }
     )
@@ -59,7 +62,7 @@ public interface LivelinessApi {
         produces = { "application/json" }
     )
     
-    default ResponseEntity<GetLiveliness200Response> getLiveliness(
+    default ResponseEntity<LivelinessResponse> getLiveliness(
         
     ) {
         return getDelegate().getLiveliness();

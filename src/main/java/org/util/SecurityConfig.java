@@ -1,4 +1,4 @@
-package org.openapitools.configuration;
+package org.util;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +14,7 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable()) // disable CSRF for APIs
             .authorizeHttpRequests(authorize -> authorize
                 .requestMatchers(
+                    "/",
                     "/auth/login",
                     "/liveliness",
                     "/swagger-ui/**",

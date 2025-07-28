@@ -6,7 +6,8 @@
 package org.openapitools.api;
 
 import org.openapitools.model.ErrorResponse;
-import org.openapitools.model.UserResponse;
+import org.openapitools.model.LoginRequest;
+import org.openapitools.model.LoginSuccessResponse;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -37,46 +38,40 @@ import jakarta.annotation.Generated;
 
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-28T00:33:30.840920-04:00[America/New_York]", comments = "Generator version: 7.14.0")
 @Validated
-@Tag(name = "Users", description = "User management")
-public interface UsersApi {
+@Tag(name = "Auth", description = "Authentication and login")
+public interface AuthApi {
 
     /**
-     * GET /users/{id} : Get a user by ID
-     * Requires a valid JWT token.
+     * POST /auth/login : Login to the service
+     * Authenticate a user and return a JWT token.
      *
-     * @param id ID of the user to retrieve (required)
-     * @return App user (status code 200)
-     *         or Unauthorized – invalid or missing token (status code 401)
-     *         or User not found (status code 404)
+     * @param loginRequest  (required)
+     * @return Login successful (status code 200)
+     *         or Invalid credentials (status code 401)
      */
     @Operation(
-        operationId = "getUserById",
-        summary = "Get a user by ID",
-        description = "Requires a valid JWT token.",
-        tags = { "Users" },
+        operationId = "postLogin",
+        summary = "Login to the service",
+        description = "Authenticate a user and return a JWT token.",
+        tags = { "Auth" },
         responses = {
-            @ApiResponse(responseCode = "200", description = "App user", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponse.class))
+            @ApiResponse(responseCode = "200", description = "Login successful", content = {
+                @Content(mediaType = "application/json", schema = @Schema(implementation = LoginSuccessResponse.class))
             }),
-            @ApiResponse(responseCode = "401", description = "Unauthorized – invalid or missing token", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
-            }),
-            @ApiResponse(responseCode = "404", description = "User not found", content = {
+            @ApiResponse(responseCode = "401", description = "Invalid credentials", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
             })
-        },
-        security = {
-            @SecurityRequirement(name = "BearerAuth")
         }
     )
     @RequestMapping(
-        method = RequestMethod.GET,
-        value = "/users/{id}",
-        produces = { "application/json" }
+        method = RequestMethod.POST,
+        value = "/auth/login",
+        produces = { "application/json" },
+        consumes = { "application/json" }
     )
     
-    ResponseEntity<UserResponse> _getUserById(
-        @Min(1) @Parameter(name = "id", description = "ID of the user to retrieve", required = true, in = ParameterIn.PATH) @PathVariable("id") Integer id
+    ResponseEntity<?> _postLogin(
+        @Parameter(name = "LoginRequest", description = "", required = true) @Valid @RequestBody LoginRequest loginRequest
     );
 
 }

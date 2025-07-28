@@ -18,26 +18,26 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.lang.Nullable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-28T00:11:12.019160-04:00[America/New_York]", comments = "Generator version: 7.14.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-07-28T00:33:30.840920-04:00[America/New_York]", comments = "Generator version: 7.14.0")
 @Validated
 @Tag(name = "Health", description = "Health check endpoints")
 public interface LivelinessApi {
-
-    default LivelinessApiDelegate getDelegate() {
-        return new LivelinessApiDelegate() {};
-    }
 
     /**
      * GET /liveliness : Check if the service is alive
@@ -62,10 +62,8 @@ public interface LivelinessApi {
         produces = { "application/json" }
     )
     
-    default ResponseEntity<LivelinessResponse> getLiveliness(
+    ResponseEntity<LivelinessResponse> _getLiveliness(
         
-    ) {
-        return getDelegate().getLiveliness();
-    }
+    );
 
 }
